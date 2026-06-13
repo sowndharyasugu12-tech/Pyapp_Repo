@@ -1,0 +1,27 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  imageName: sample-app
+
+stages:
+
+- stage: Build
+
+  jobs:
+
+  - job: DockerBuild
+
+    steps:
+
+    - task: Docker@2
+      inputs:
+        command: buildAndPush
+        repository: $(imageName)
+        dockerfile: Dockerfile
+        containerRegistry: aws-ecr
+        tags: |
+          $(Build.BuildId)

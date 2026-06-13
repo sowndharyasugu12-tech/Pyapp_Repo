@@ -1,0 +1,28 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: Docker@2
+  inputs:
+    command: buildAndPush
+    repository: sample-app
+    dockerfile: app/Dockerfile
+    containerRegistry: acr-service-connection
+    tags: |
+      $(Build.BuildId)
+
+- script: |
+
+    sed -i 's/tag:.*/tag: $(Build.BuildId)/g' \
+    helm/sample-app/values.yaml
+
+    git config user.email "pipeline@company.com"
+    git config user.name "azure-devops"
+
+    git add .
+    git commit -m "image update"
+    git push

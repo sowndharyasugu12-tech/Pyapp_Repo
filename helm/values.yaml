@@ -1,0 +1,5 @@
+image:
+  repository: devopsacr12345.azurecr.io/sample-app
+  tag: latest
+
+replicaCount: 2
