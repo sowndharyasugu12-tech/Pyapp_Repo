@@ -3,3 +3,8 @@ image:
   tag: latest
 
 replicaCount: 2
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
