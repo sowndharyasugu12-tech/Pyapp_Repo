@@ -9,6 +9,9 @@ service:
   targetPort: 5000
 ingress:
   enabled: false
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6d66ab4 (Fix Helm chart values)
 autoscaling:
   enabled: false
