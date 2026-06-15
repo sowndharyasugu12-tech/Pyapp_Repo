@@ -10,9 +10,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/your-org/gitops-repo.git
-    targetRevision: main
-    path: helm/sample-app
+    repoURL: https://github.com/sowndharyasugu12-tech/Pyapp_Repo.git
+    targetRevision: master
+    path: helm
 
   destination:
     server: https://kubernetes.default.svc
