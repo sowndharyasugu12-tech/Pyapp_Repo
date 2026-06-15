@@ -1,5 +1,6 @@
 name: CI-CD to AKS via ArgoCD + Helm
-
+permissions:
+  contents: write
 on:
   push:
     branches:
