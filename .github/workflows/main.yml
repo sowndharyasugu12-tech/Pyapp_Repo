@@ -1,0 +1,49 @@
+name: CI-CD to AKS via ArgoCD + Helm
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  ACR_NAME: sowacr20260615
+  IMAGE_NAME: pyapp
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to ACR
+        run: az acr login --name $ACR_NAME
+
+      - name: Build Docker image
+        run: |
+          IMAGE_TAG=${GITHUB_SHA::7}
+          docker build -t $ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG .
+
+      - name: Push image to ACR
+        run: |
+          IMAGE_TAG=${GITHUB_SHA::7}
+          docker push $ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG
+
+      - name: Update Helm values.yaml
+        run: |
+          IMAGE_TAG=${GITHUB_SHA::7}
+          sed -i "s|tag:.*|tag: $IMAGE_TAG|g" helm/values.yaml
+
+      - name: Commit updated Helm file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add helm/values.yaml
+          git commit -m "Update image tag to $IMAGE_TAG"
+          git push
