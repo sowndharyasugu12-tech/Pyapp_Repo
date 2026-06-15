@@ -3,6 +3,10 @@ image:
   tag: latest
 
 replicaCount: 2
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 5000
 ingress:
   enabled: false
 
