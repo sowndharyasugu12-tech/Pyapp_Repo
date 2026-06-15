@@ -1,6 +1,6 @@
 image:
   repository: sowacr20260615.azurecr.io/sample-app
-  tag: "8557276"
+  tag: "1ee2f43"
 
 replicaCount: 2
 service:
