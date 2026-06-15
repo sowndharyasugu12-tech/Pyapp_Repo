@@ -8,7 +8,7 @@ on:
 
 env:
   ACR_NAME: sowacr20260615
-  IMAGE_NAME: pyapp
+  IMAGE_NAME: sample-app
 
 jobs:
   build-and-push:
