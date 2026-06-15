@@ -38,7 +38,9 @@ jobs:
 
       - name: Update Helm values.yaml
         run: |
-          IMAGE_TAG=${GITHUB_SHA::7}
+          #IMAGE_TAG=${GITHUB_SHA::7}
+          IMAGE_TAG=$(git rev-parse --short HEAD)
+          echo "Using tag: $IMAGE_TAG"
           sed -i "s/^  tag:.*/  tag: \"$IMAGE_TAG\"/" helm/values.yaml
 
       - name: Commit updated Helm file
