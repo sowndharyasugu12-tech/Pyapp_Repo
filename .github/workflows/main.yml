@@ -28,7 +28,7 @@ jobs:
       - name: Build Docker image
         run: |
           IMAGE_TAG=${GITHUB_SHA::7}
-          docker build -t $ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG .
+          docker build -t $ACR_NAME.azurecr.io/$IMAGE_NAME:$IMAGE_TAG -f apps/Dockerfile apps
 
       - name: Push image to ACR
         run: |
